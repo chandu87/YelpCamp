@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
+const bodyPraser = require('body-parser');
 
+app.use(bodyPraser.urlencoded({extended : true}));
 app.set("view engine", "ejs");
 
 app.get("/", function(req, res){
@@ -14,7 +16,9 @@ app.get("/campgrounds", function(req, res){
                     {name : "Klampenborg", image : "http://www.photosforclass.com/download/flickr-14435096036"}];
     res.render("campgrounds", {data : campData});
 });
-
+app.post("/campgrounds", function(req, res){
+    res.send("This is a post request");
+})
 app.listen(3000, function(){
     console.log("Server started at : 3000");
 });
