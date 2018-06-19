@@ -1,19 +1,31 @@
-<style>
-    img {
-        width: 300px;
-    }
-</style>
 <%include partials/head%>
-    <div>
-        <h1>Campgrounds Page</h1>
-        <%data.forEach((camp)=>{%>
-            <li>
-                <%=camp.name%>
-            </li>
-            <img src=<%=camp.image%> alt="camp Image">
-            <%});%>
-    </div>
-    <a href="/">Home Page</a>
-    <a href="/campgrounds/new"> Add new Campground</a>
+    <div class="container">
+        <header class="jumbotron">
+            <div class="container">
+                <h1>Welcome to CPH-Camp</h1>
+                <p>View our hand-picked campgrounds all over the Denmark</p>
+                <p>
+                    <a class="btn btn-lg btn-primary" href="/campgrounds/new"> Add new Campground</a>
+                </p>
+            </div>
+        </header>
 
-<% include partials/footer %>
+        <div class="row text-center">
+            <%data.forEach((camp)=>{%>
+                <div class="col-md-4 col-sm-6">
+                    <div class="img-thumbnail">
+                        <img  style="width:100%" src="<%=camp.image%>"  alt="camp Image">
+                        <div class="caption">
+                            <h4>
+                                <%=camp.name%>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <%});%>
+        </div>
+
+        <a href="/">Home Page</a>
+    </div>
+
+    <% include partials/footer %>
