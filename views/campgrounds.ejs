@@ -1,5 +1,10 @@
+<%include partials/head%>
+
 <h1>Campgrounds Page</h1>
 <%data.forEach((camp)=>{%>
     <li><%=camp.name%></li>
     <img src=<%=camp.image%> alt="camp Image">
 <%});%>
+<a href="/">Home Page</a>
+
+<% include partials/footer %>
