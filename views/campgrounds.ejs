@@ -1,10 +1,19 @@
+<style>
+    img {
+        width: 300px;
+    }
+</style>
 <%include partials/head%>
-
-<h1>Campgrounds Page</h1>
-<%data.forEach((camp)=>{%>
-    <li><%=camp.name%></li>
-    <img src=<%=camp.image%> alt="camp Image">
-<%});%>
-<a href="/">Home Page</a>
+    <div>
+        <h1>Campgrounds Page</h1>
+        <%data.forEach((camp)=>{%>
+            <li>
+                <%=camp.name%>
+            </li>
+            <img src=<%=camp.image%> alt="camp Image">
+            <%});%>
+    </div>
+    <a href="/">Home Page</a>
+    <a href="/campgrounds/new"> Add new Campground</a>
 
 <% include partials/footer %>

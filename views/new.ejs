@@ -1,0 +1,8 @@
+<% include partials/head %>
+    <h1>Add new Campgrounds</h1>
+    <form action="/campgrounds" method="POST">
+        <input type="text" name="name" placeholder="Campground Name">
+        <input type="text" name="image" placeholder="Image Url">
+        <button type="submit">Submit</button>
+    </form>
+<% include partials/footer%>
