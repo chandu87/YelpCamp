@@ -25,7 +25,8 @@ mongoose.connect("mongodb://localhost/yelp_camp");
 //Schema SETUP
 let campgroundSchema = new mongoose.Schema({
     name: String,
-    image: String
+    image: String,
+    description : String
 }); 
 //Create Campground MODEL
 
@@ -34,7 +35,8 @@ let Campground = mongoose.model("Campground", campgroundSchema);
 // Campground.create({
 //   name: "Tissvilde",
 //   image:
-//       "http://www.photosforclass.com/download/pixabay-1846142?webUrl=https%3A%2F%2Fpixabay.com%2Fget%2Fe83db50929f0033ed1584d05fb1d4e97e07ee3d21cac104497f9c671a2e9b4b9_960.jpg&user=Pexels"
+//       "http://www.photosforclass.com/download/pixabay-1846142?webUrl=https%3A%2F%2Fpixabay.com%2Fget%2Fe83db50929f0033ed1584d05fb1d4e97e07ee3d21cac104497f9c671a2e9b4b9_960.jpg&user=Pexels",
+//       description: "This is a beautiful place. Good place for camping. Sand hills, long beach, beautiful view."
 //   },function(err, data){
 //     if(err){
 //       console.log("Error In Creating File", err);
@@ -82,6 +84,17 @@ app.post("/campgrounds", function(req, res) {
 app.get("/campgrounds/new", function(req, res) {
   res.render("new");
 });
+app.get("/campgrounds/:id",function(req, res){
+  const reqId = req.params.id;
+  Campground.findById(reqId, function(err, data){
+    if(err){
+      console.log("Error in showing requestID page");
+    }else{
+      res.render("show", {data : data});
+    }
+  });
+});
+
 app.listen(3000, function() {
   console.log("Server started at : 3000");
 });
