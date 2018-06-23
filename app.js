@@ -67,7 +67,8 @@ app.get("/campgrounds", function(req, res) {
 app.post("/campgrounds", function(req, res) {
   const campName = req.body.name;
   const campUrl = req.body.image;
-  const newCampground = { name: campName, image: campUrl };
+  const campDes = req.body.description;
+  const newCampground = { name: campName, image: campUrl, description: campDes};
   // campData.push(newCampground);
   // res.render("campgrounds", { data: campData });
   Campground.create(newCampground, function(err, data){
