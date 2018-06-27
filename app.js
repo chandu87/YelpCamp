@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const bodyPraser = require("body-parser");
 const mongoose = require("mongoose");
-
+const Campground = require("./models/campground")
 mongoose.connect("mongodb://localhost/yelp_camp");
 
 // let campData = [
@@ -22,15 +22,6 @@ mongoose.connect("mongodb://localhost/yelp_camp");
 //   }
 // ];
 
-//Schema SETUP
-let campgroundSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-    description : String
-}); 
-//Create Campground MODEL
-
-let Campground = mongoose.model("Campground", campgroundSchema);
 
 // Campground.create({
 //   name: "Tissvilde",
