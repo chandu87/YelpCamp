@@ -3,5 +3,10 @@
     <h1><%=data.name%></h1>
     <img  style="width:50%" src="<%=data.image%>"  alt="camp Image">
     <p><%=data.description%></p>
+    <h3>Comments</h3>
+    <%data.comments.forEach((comment)=>{%>
+        <p><strong><%=comment.author%></strong> - <%=comment.text%></p>
+    <%});%>
+    
 </div>
 <% include partials/footer%>

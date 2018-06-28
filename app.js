@@ -6,37 +6,7 @@ const Campground = require("./models/campground")
 mongoose.connect("mongodb://localhost/yelp_camp");
 const seedDb = require("./seeds");
 seedDb();
-// let campData = [
-//   {
-//     name: "Tissvilde",
-//     image:
-//       "http://www.photosforclass.com/download/pixabay-1845719?webUrl=https%3A%2F%2Fpixabay.com%2Fget%2Fe83db50a2ff5083ed1584d05fb1d4e97e07ee3d21cac104497f9c27ca7efb1bd_960.jpg&user=Pexels"
-//   },
-//   {
-//     name: "Mons-Klint",
-//     image:
-//       "http://www.photosforclass.com/download/pixabay-2768515?webUrl=https%3A%2F%2Fpixabay.com%2Fget%2Feb32b7072df5043ed1584d05fb1d4e97e07ee3d21cac104497f9c27ca7efb1bd_960.jpg&user=rawpixel"
-//   },
-//   {
-//     name: "Klampenborg",
-//     image: "http://www.photosforclass.com/download/flickr-14435096036"
-//   }
-// ];
 
-
-// Campground.create({
-//   name: "Tissvilde",
-//   image:
-//       "http://www.photosforclass.com/download/pixabay-1846142?webUrl=https%3A%2F%2Fpixabay.com%2Fget%2Fe83db50929f0033ed1584d05fb1d4e97e07ee3d21cac104497f9c671a2e9b4b9_960.jpg&user=Pexels",
-//       description: "This is a beautiful place. Good place for camping. Sand hills, long beach, beautiful view."
-//   },function(err, data){
-//     if(err){
-//       console.log("Error In Creating File", err);
-//     }
-//     else{
-//       console.log("Created File", data);
-//     }
-// });
 
 app.use(bodyPraser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
@@ -79,10 +49,11 @@ app.get("/campgrounds/new", function(req, res) {
 });
 app.get("/campgrounds/:id",function(req, res){
   const reqId = req.params.id;
-  Campground.findById(reqId, function(err, data){
+  Campground.findById(reqId).populate("comments").exec(function(err, data){
     if(err){
       console.log("Error in showing requestID page");
     }else{
+      console.log(data);
       res.render("show", {data : data});
     }
   });
