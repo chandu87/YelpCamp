@@ -12,7 +12,7 @@ app.use(bodyPraser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
 app.get("/", function(req, res) {
-  res.render("home");
+  res.render("landing");
 });
 
 app.get("/campgrounds", function(req, res) {
@@ -21,7 +21,7 @@ app.get("/campgrounds", function(req, res) {
       console.log("Error in getting data", err);
     }else{
       console.log("Loaded data is : ",data);
-      res.render("campgrounds", { data: data });
+      res.render("campgrounds/campgrounds", { data: data });
     }
   });
   
@@ -39,13 +39,13 @@ app.post("/campgrounds", function(req, res) {
     }
     else{
       console.log("New camp added to DB", data);
-      res.redirect("/campgrounds");
+      res.redirect("campgrounds/campgrounds");
     }
 
   });
 });
 app.get("/campgrounds/new", function(req, res) {
-  res.render("new");
+  res.render("campgrounds/new");
 });
 app.get("/campgrounds/:id",function(req, res){
   const reqId = req.params.id;
@@ -54,10 +54,23 @@ app.get("/campgrounds/:id",function(req, res){
       console.log("Error in showing requestID page");
     }else{
       console.log(data);
-      res.render("show", {data : data});
+      res.render("campgrounds/show", {data : data});
     }
   });
 });
+
+app.get("/campgrounds/:id/comments/new", function(req, res){
+  Campground.findById(req.params.id, function(err, campgroundFound){
+    if(err){
+      console.log(err);
+    }else{
+      console.log(campgroundFound);
+      res.render('comments/new',{campground : campgroundFound});      
+    }
+  });
+
+});
+
 
 app.listen(3000, function() {
   console.log("Server started at : 3000");
