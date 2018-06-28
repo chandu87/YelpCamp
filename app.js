@@ -4,7 +4,8 @@ const bodyPraser = require("body-parser");
 const mongoose = require("mongoose");
 const Campground = require("./models/campground")
 mongoose.connect("mongodb://localhost/yelp_camp");
-
+const seedDb = require("./seeds");
+seedDb();
 // let campData = [
 //   {
 //     name: "Tissvilde",
