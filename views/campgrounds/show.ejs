@@ -7,6 +7,7 @@
     <%data.comments.forEach((comment)=>{%>
         <p><strong><%=comment.author%></strong> - <%=comment.text%></p>
     <%});%>
+    <a class="btn btn-success" href="/campgrounds/<%=data._id%>/comments/new">Add comment</a>
     
 </div>
 <% include ../partials/footer%>
