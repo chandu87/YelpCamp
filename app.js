@@ -1,14 +1,29 @@
-const express = require("express");
-const app = express();
-const bodyPraser = require("body-parser");
-const mongoose = require("mongoose");
-const Campground = require("./models/campground");
-const Comment = require("./models/comment");
+const express       = require("express"),
+      app           = express(),
+      bodyPraser    = require("body-parser"),
+      mongoose      = require("mongoose"),
+      Campground    = require("./models/campground"),
+      Comment       = require("./models/comment"),
+      passport      = require('passport'),
+      localStrategy = require('passport-local'),
+      User          = require('./models/user');
 
 mongoose.connect("mongodb://localhost/yelp_camp");
+app.use(express.static(__dirname + "/public"));
+
+app.use(require('express-session')({
+  secret: "Yelp camps are the best",
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 const seedDb = require("./seeds");
 seedDb();
-
 
 app.use(bodyPraser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
@@ -86,6 +101,22 @@ app.post("/campgrounds/:id/comments", function(req, res){
   })
 });
 
+//Singup page
+app.get("/register", function(req, res){
+  res.render("register");
+})
+app.post("/register", function(req, res){
+  User.register(new User({username: req.body.username}), req.body.password, function(err, user){
+    if(err){
+      console.log(err);
+      return res.render("register");
+    }
+    passport.authenticate("local")(req, res, function(){
+      res.redirect("campgrounds");
+    });
+
+  });  
+})
 
 app.listen(3000, function() {
   console.log("Server started at : 3000");
