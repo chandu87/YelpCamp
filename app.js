@@ -28,17 +28,22 @@ seedDb();
 app.use(bodyPraser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
+app.use(function(req, res, next){
+  res.locals.user = req.user;
+  next();
+});
+
 app.get("/", function(req, res) {
   res.render("landing");
 });
 
 app.get("/campgrounds", function(req, res) {
-  Campground.find({}, function(err, data){
+  Campground.find({}, function(err, campgroundData){
     if(err){
       console.log("Error in getting data", err);
     }else{
       // console.log("Loaded data is : ",data);
-      res.render("campgrounds/campgrounds", { data: data });
+      res.render("campgrounds/campgrounds", { data: campgroundData});
     }
   });
   
