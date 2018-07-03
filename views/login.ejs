@@ -1,6 +1,16 @@
-<h1>Register Page</h1>
+<%include ./partials/head%>  
+<div class="container main-container">
+<h1>Login Page</h1>
 <form action="/login" method="POST">
-    <input type="text" name="username" placeholder="Username">
-    <input type="password" name="password" placeholder="Password">
+    <div>
+        <label>Username: </label>
+        <input type="text" name="username" placeholder="Username">
+    </div>
+    <div>
+        <label>Password: </label>    
+        <input type="password" name="password" placeholder="Password">
+    </div>
     <input type="submit" value="Login">
 </form>
+</div>
+<% include ./partials/footer %>

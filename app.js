@@ -37,7 +37,7 @@ app.get("/campgrounds", function(req, res) {
     if(err){
       console.log("Error in getting data", err);
     }else{
-      console.log("Loaded data is : ",data);
+      // console.log("Loaded data is : ",data);
       res.render("campgrounds/campgrounds", { data: data });
     }
   });
@@ -55,7 +55,7 @@ app.post("/campgrounds", function(req, res) {
       console.log("Error is :", err);
     }
     else{
-      console.log("New camp added to DB", data);
+      // console.log("New camp added to DB", data);
       res.redirect("campgrounds/campgrounds");
     }
 
@@ -70,7 +70,7 @@ app.get("/campgrounds/:id",function(req, res){
     if(err){
       console.log("Error in showing requestID page");
     }else{
-      console.log(data);
+      // console.log(data);
       res.render("campgrounds/show", {data : data});
     }
   });
@@ -81,7 +81,7 @@ app.get("/campgrounds/:id/comments/new", function(req, res){
     if(err){
       console.log(err);
     }else{
-      console.log(campgroundFound);
+      // console.log(campgroundFound);
       res.render('comments/new',{campground : campgroundFound});      
     }
   });
@@ -125,8 +125,14 @@ app.post("/login", passport.authenticate("local", {
   successRedirect: "/campgrounds",
   failureRedirect: "/login"
 }), function(req, res){
-  
 });
+
+//Logout Route
+app.get("/logout", function(req, res){
+  req.logout();
+  res.redirect("/campgrounds");
+})
+
 app.listen(3000, function() {
   console.log("Server started at : 3000");
 });
