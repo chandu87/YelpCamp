@@ -36,8 +36,8 @@ app.use(function(req, res, next){
   next();
 });
 app.use(indexRoutes);
-app.use(campgroundRoutes);
-app.use(commentRoutes);
+app.use("/campgrounds", campgroundRoutes);
+app.use("/campgrounds/:id/comments", commentRoutes);
 
 app.listen(3000, function() {
   console.log("Server started at : 3000");
