@@ -1,7 +1,8 @@
-const   express     = require("express"),
-        router      = express.Router(),
-        Campground  = require("../models/campground");
+const express = require("express"),
+  router = express.Router(),
+  Campground = require("../models/campground");
 
+//Campgrounds Route
 router.get("/", function(req, res) {
   Campground.find({}, function(err, campgroundData) {
     if (err) {
@@ -12,6 +13,8 @@ router.get("/", function(req, res) {
     }
   });
 });
+
+//Campgrounds POST to create new
 router.post("/", function(req, res) {
   const campName = req.body.name;
   const campUrl = req.body.image;
@@ -32,9 +35,13 @@ router.post("/", function(req, res) {
     }
   });
 });
+
+//campgrounds new create page
 router.get("/new", function(req, res) {
   res.render("campgrounds/new");
 });
+
+//Show campground with ID
 router.get("/:id", function(req, res) {
   const reqId = req.params.id;
   Campground.findById(reqId)

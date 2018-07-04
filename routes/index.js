@@ -11,10 +11,12 @@ router.get("/", function(req, res) {
   res.render("landing");
 });
 
-//Singup page
+//Singup page GET 
 router.get("/register", function(req, res) {
   res.render("register");
 });
+
+//Singup POST route
 router.post("/register", function(req, res) {
   User.register(
     new User({ username: req.body.username }),

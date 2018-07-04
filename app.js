@@ -7,6 +7,8 @@ const express       = require("express"),
       passport      = require('passport'),
       localStrategy = require('passport-local'),
       User          = require('./models/user');
+
+//Requiring routes
 const campgroundRoutes  = require('./routes/campgrounds'),
       commentRoutes      = require('./routes/comments'),
       indexRoutes       = require('./routes/index');
