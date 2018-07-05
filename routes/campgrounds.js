@@ -19,18 +19,20 @@ router.post("/", isLoggeIn, function(req, res) {
   const campName = req.body.name;
   const campUrl = req.body.image;
   const campDes = req.body.description;
+  const authorDes = {id: req.user._id, username: req.user.username}
   const newCampground = {
     name: campName,
     image: campUrl,
+    author: authorDes,
     description: campDes
   };
-  // campData.push(newCampground);
-  // res.render("campgrounds", { data: campData });
+  
+  //Saving new campgrond to DB
   Campground.create(newCampground, function(err, data) {
     if (err) {
       console.log("Error is :", err);
     } else {
-      console.log("New camp added to DB", data);
+      // console.log("New camp added to DB", data);
       res.redirect("/campgrounds/"+data._id);
     }
   });
