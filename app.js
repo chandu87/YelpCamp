@@ -40,6 +40,8 @@ app.set("view engine", "ejs");
 
 app.use(function(req, res, next){
   res.locals.user = req.user;
+  res.locals.successMessage = req.flash("success");
+  res.locals.errorMessage = req.flash("error");  
   next();
 });
 app.use(indexRoutes);

@@ -34,7 +34,7 @@ router.post("/register", function(req, res) {
 });
 //Login page
 router.get("/login", function(req, res) {
-  res.render("login", {message : req.flash("error")});
+  res.render("login");
 });
 router.post(
   "/login",
@@ -48,6 +48,7 @@ router.post(
 //Logout Route
 router.get("/logout", function(req, res) {
   req.logout();
+  req.flash("success", "Just Logged you Out");
   res.redirect("/campgrounds");
 });
 
