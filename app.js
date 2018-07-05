@@ -28,7 +28,8 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 const seedDb = require("./seeds");
-seedDb();
+//Seeding database but now we are going to do manually
+//seedDb();
 
 app.use(bodyPraser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
