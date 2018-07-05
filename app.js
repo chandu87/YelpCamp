@@ -6,7 +6,8 @@ const express       = require("express"),
       Comment       = require("./models/comment"),
       passport      = require('passport'),
       localStrategy = require('passport-local'),
-      User          = require('./models/user');
+      User          = require('./models/user'),
+      methodOverride= require('method-override');
 
 //Requiring routes
 const campgroundRoutes  = require('./routes/campgrounds'),
@@ -15,7 +16,7 @@ const campgroundRoutes  = require('./routes/campgrounds'),
 
 mongoose.connect("mongodb://localhost/yelp_camp");
 app.use(express.static(__dirname + "/public"));
-
+app.use(methodOverride("_method"));
 app.use(require('express-session')({
   secret: "Yelp camps are the best",
   resave: false,
