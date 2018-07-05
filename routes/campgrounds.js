@@ -1,6 +1,7 @@
 const express = require("express"),
   router = express.Router(),
-  Campground = require("../models/campground");
+  Campground = require("../models/campground"),
+  middlewareObj = require('../middleware');
 
 //Campgrounds Route
 router.get("/", function(req, res) {
@@ -15,7 +16,7 @@ router.get("/", function(req, res) {
 });
 
 //Campgrounds POST to create new
-router.post("/", isLoggeIn, function(req, res) {
+router.post("/", middlewareObj.isLoggedIn, function(req, res) {
   const campName = req.body.name;
   const campUrl = req.body.image;
   const campDes = req.body.description;
@@ -39,7 +40,7 @@ router.post("/", isLoggeIn, function(req, res) {
 });
 
 //campgrounds new create page
-router.get("/new", isLoggeIn, function(req, res) {
+router.get("/new", middlewareObj.isLoggedIn, function(req, res) {
   res.render("campgrounds/new");
 });
 
@@ -59,14 +60,14 @@ router.get("/:id", function(req, res) {
 });
 
 //Edit Campgrounds Page
-router.get("/:id/edit", isUserAuthorized, function(req, res) {
+router.get("/:id/edit", middlewareObj.isUserAuthorizedToCampground, function(req, res) {
     Campground.findById(req.params.id, function(err, campground) {
           res.render("campgrounds/edit", { campground: campground });
     });
 });
 
 //Update Campgrounds Page
-router.put("/:id", isUserAuthorized, function(req, res) {
+router.put("/:id", middlewareObj.isUserAuthorizedToCampground, function(req, res) {
   Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(
     err,
     campground
@@ -79,7 +80,7 @@ router.put("/:id", isUserAuthorized, function(req, res) {
   });
 });
 //DELETE campgrounds
-router.delete("/:id", isUserAuthorized, function(req, res) {
+router.delete("/:id", middlewareObj.isUserAuthorizedToCampground, function(req, res) {
   Campground.findByIdAndRemove(req.params.id, function(err) {
     if (err) {
       res.redirect("/campgrounds");
@@ -89,31 +90,5 @@ router.delete("/:id", isUserAuthorized, function(req, res) {
   });
 });
 
-//middleware for checking loggedin
-function isLoggeIn(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect("/login");
-}
-
-function isUserAuthorized(req, res, next){
-  if (req.isAuthenticated()) {
-    Campground.findById(req.params.id, function(err, campground) {
-      if (err) {
-        res.redirect("/campgrounds");
-      } else {
-        if (campground.author.id.equals(req.user._id)) {
-            next();
-        } else {
-          res.redirect("back");
-        }
-      }
-    });
-  } else {
-    res.redirect("/login");
-  }
-
-}
 
 module.exports = router;
