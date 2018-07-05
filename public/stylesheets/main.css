@@ -4,3 +4,6 @@ body{
 .main-container{
     margin-top:60px;
 }
+#delete-form{
+    display: inline;
+}
