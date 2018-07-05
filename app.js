@@ -2,6 +2,7 @@ const express       = require("express"),
       app           = express(),
       bodyPraser    = require("body-parser"),
       mongoose      = require("mongoose"),
+      flash         = require('connect-flash')
       Campground    = require("./models/campground"),
       Comment       = require("./models/comment"),
       passport      = require('passport'),
@@ -17,6 +18,8 @@ const campgroundRoutes  = require('./routes/campgrounds'),
 mongoose.connect("mongodb://localhost/yelp_camp");
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
+app.use(flash());
+
 app.use(require('express-session')({
   secret: "Yelp camps are the best",
   resave: false,
