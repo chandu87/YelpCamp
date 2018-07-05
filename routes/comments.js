@@ -23,9 +23,17 @@ router.post("/", isLoggeIn, function(req, res) {
       console.log(err);
     } else {
       Comment.create(req.body.comment, function(err, newComment) {
-        campground.comments.push(newComment);
-        campground.save();
-        res.redirect("/campgrounds/" + campground._id);
+        if (err) {
+          console.log(err);
+        } else {
+          newComment.author.id = req.user._id;
+          newComment.author.username = req.user.username;
+          newComment.save();
+          campground.comments.push(newComment);
+          campground.save();
+          res.redirect("/campgrounds/" + campground._id);
+        //   console.log(newComment);
+        }
       });
     }
   });
