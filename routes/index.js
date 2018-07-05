@@ -23,11 +23,13 @@ router.post("/register", function(req, res) {
     req.body.password,
     function(err, user) {
       if (err) {
-        console.log(err);
-        return res.render("register");
+        // console.log(err);
+        req.flash("error", err.message);
+        return res.redirect("/register");
       }
       passport.authenticate("local")(req, res, function() {
-        res.redirect("campgrounds");
+        req.flash("success", "Welcome to CPH-Camp "+ user.username);
+        res.redirect("/campgrounds");
       });
     }
   );
@@ -48,7 +50,7 @@ router.post(
 //Logout Route
 router.get("/logout", function(req, res) {
   req.logout();
-  req.flash("success", "Just Logged you Out");
+  req.flash("success", "Logged Out Successfully");
   res.redirect("/campgrounds");
 });
 
