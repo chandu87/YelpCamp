@@ -14,7 +14,7 @@
                     <img class="card-img-top" src="<%=data.image%>" alt="camp Image">
                     <div class="card-body">
                         <div class="card-title">
-                            <h4 class="float-right">$9.00/night</h4>
+                            <h4 class="float-right">$<%=data.price%>/night</h4>
                             <h4>
                                 <%=data.name%>
                             </h4>
@@ -23,7 +23,7 @@
                             <%=data.description%>
                         </p>
                         <p class="card-text">
-                            <small class="text-muted">Submitted by: <%=data.author.username%>, Last updated 3 mins ago</small>
+                            <small class="text-muted">Submitted by: <%=data.author.username%></small>
                         </p>
                         <%if(user && data.author.id.equals(user._id)){%>
                         <a class="btn btn-sm btn-warning" href="/campgrounds/<%=data._id%>/edit">Edit</a>

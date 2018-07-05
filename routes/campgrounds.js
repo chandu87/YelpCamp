@@ -18,11 +18,13 @@ router.get("/", function(req, res) {
 //Campgrounds POST to create new
 router.post("/", middlewareObj.isLoggedIn, function(req, res) {
   const campName = req.body.name;
+  const campPrice = req.body.price;
   const campUrl = req.body.image;
   const campDes = req.body.description;
   const authorDes = { id: req.user._id, username: req.user.username };
   const newCampground = {
     name: campName,
+    price: campPrice,
     image: campUrl,
     author: authorDes,
     description: campDes
