@@ -53,6 +53,10 @@
                                 <p>
                                     <%=comment.text%>
                                 </p>
+                                <a class="btn btn-warning btn-sm" href="/campgrounds/<%=data._id%>/comments/<%=comment._id%>/edit">Edit</a>
+                                <form id="delete-form" action="/campgrounds/<%=data._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+                                    <button class="btn btn-danger btn-sm">Delete</button>
+                                </form>
                             </div>
                             <%});%>
                     </div>
