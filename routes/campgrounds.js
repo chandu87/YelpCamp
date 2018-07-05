@@ -30,8 +30,8 @@ router.post("/", isLoggeIn, function(req, res) {
     if (err) {
       console.log("Error is :", err);
     } else {
-      // console.log("New camp added to DB", data);
-      res.redirect("campgrounds/campgrounds");
+      console.log("New camp added to DB", data);
+      res.redirect("/campgrounds/"+data._id);
     }
   });
 });
