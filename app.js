@@ -16,7 +16,10 @@ const campgroundRoutes  = require('./routes/campgrounds'),
       commentRoutes      = require('./routes/comments'),
       indexRoutes       = require('./routes/index');
 
-mongoose.connect("mongodb://localhost/yelp_camp");
+// mongoose.connect("mongodb://localhost/yelp_camp");
+mongoose.connect("mongodb://chandu:chandu0988@ds125183.mlab.com:25183/cphcamp");
+//mongodb://chandu:chandu0988@ds125183.mlab.com:25183/cphcamp
+
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 app.use(flash());
